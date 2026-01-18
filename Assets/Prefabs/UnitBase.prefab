@@ -161,7 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5667164650790984448}
   - component: {fileID: 700921517152112211}
-  - component: {fileID: 1312150117788173719}
+  - component: {fileID: -3642056062706007363}
   m_Layer: 0
   m_Name: UnitBase
   m_TagString: Untagged
@@ -205,7 +205,7 @@ MonoBehaviour:
   personalRadius: 0.5
   cooldown: 0
   team: 0
---- !u!114 &1312150117788173719
+--- !u!114 &-3642056062706007363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

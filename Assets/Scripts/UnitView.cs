@@ -25,8 +25,6 @@ public class HpBar : MonoBehaviour
     void Update()
     {
         updateHpBar();
-        updateUnitLayer();
-
     }
     
     void updateHpBar()
@@ -41,18 +39,6 @@ public class HpBar : MonoBehaviour
                 hpFill.color = Color.yellow;
             else
                 hpFill.color = originalHpColor;
-        }
-    }
-    void updateUnitLayer()
-    {
-    // Unit with lower z position should be rendered on top
-        if (unit)
-        {
-            SpriteRenderer sr = unit.GetComponent<SpriteRenderer>();
-            if (sr)
-            {
-                sr.sortingOrder = -(int)(unit.transform.position.z);
-            }
         }
     }
 }
