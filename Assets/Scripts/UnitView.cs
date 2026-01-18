@@ -24,6 +24,13 @@ public class HpBar : MonoBehaviour
 
     void Update()
     {
+        updateHpBar();
+        updateUnitLayer();
+
+    }
+    
+    void updateHpBar()
+    {
         if (unit && hpFill)
         {
             float ratio = unit.maxHp > 0 ? Mathf.Clamp01(unit.hp / unit.maxHp) : 0f;
@@ -36,5 +43,16 @@ public class HpBar : MonoBehaviour
                 hpFill.color = originalHpColor;
         }
     }
-
+    void updateUnitLayer()
+    {
+    // Unit with lower z position should be rendered on top
+        if (unit)
+        {
+            SpriteRenderer sr = unit.GetComponent<SpriteRenderer>();
+            if (sr)
+            {
+                sr.sortingOrder = -(int)(unit.transform.position.z);
+            }
+        }
+    }
 }

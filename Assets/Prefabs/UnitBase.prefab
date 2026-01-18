@@ -161,6 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5667164650790984448}
   - component: {fileID: 700921517152112211}
+  - component: {fileID: 1312150117788173719}
   m_Layer: 0
   m_Name: UnitBase
   m_TagString: Untagged
@@ -204,6 +205,19 @@ MonoBehaviour:
   personalRadius: 0.5
   cooldown: 0
   team: 0
+--- !u!114 &1312150117788173719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205877847313343926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de95ed81a15ee480a8bf21f4d2e35bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HpBar
+  hpFill: {fileID: 742440881108744480}
 --- !u!1 &4272299527281167846
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +305,6 @@ GameObject:
   - component: {fileID: 5733364391470660219}
   - component: {fileID: 1495282101877818661}
   - component: {fileID: 9133194255846447815}
-  - component: {fileID: 2675192378073402388}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -383,16 +396,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2675192378073402388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7944778947584749527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de95ed81a15ee480a8bf21f4d2e35bab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpFill: {fileID: 742440881108744480}
