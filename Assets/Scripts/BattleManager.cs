@@ -94,7 +94,8 @@ public class BattleManager : MonoBehaviour
             Vector3 pos = center + Random.insideUnitSphere;
             pos.y = 0;
 
-            var go = Instantiate(unitPrefab, pos, Quaternion.identity);
+            // Keep prefab's authored rotation (Quaternion.identity would zero it out)
+            var go = Instantiate(unitPrefab, pos, unitPrefab.transform.rotation);
             var u = go.GetComponent<Unit>();
             u.team = team;
 
@@ -103,7 +104,10 @@ public class BattleManager : MonoBehaviour
             if (team == Team.Blue)
                 blueUnits.Add(u);
             else
+            {
+                u.transform.localScale = new Vector3(-1, 1, 1); // Flip for red team
                 redUnits.Add(u);
+            }
         }
     }
 

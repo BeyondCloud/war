@@ -5,10 +5,13 @@ public class UnitView : MonoBehaviour
 {
     public Image hpFill;
     private Unit unit;
+    private Color originalHpColor;
 
     void Awake()
     {
         unit = GetComponentInParent<Unit>();
+        if (hpFill != null)
+            originalHpColor = hpFill.color;
         if (unit != null)
         {
             Debug.Log("Successfully retrieved Unit component.");
@@ -21,17 +24,17 @@ public class UnitView : MonoBehaviour
 
     void Update()
     {
-        if (unit)
-            hpFill.fillAmount = Mathf.Clamp01(unit.hp / unit.maxHp);
-    }
-
-    void LateUpdate()
-    {
-        if (Camera.main != null)
+        if (unit && hpFill)
         {
-            transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, transform.rotation.eulerAngles.z);
+            float ratio = unit.maxHp > 0 ? Mathf.Clamp01(unit.hp / unit.maxHp) : 0f;
+            hpFill.fillAmount = ratio;
+            if (ratio < 0.3f)
+                hpFill.color = Color.red;
+            else if (ratio < 0.7f)
+                hpFill.color = Color.yellow;
+            else
+                hpFill.color = originalHpColor;
         }
-
     }
+
 }
