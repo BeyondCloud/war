@@ -28,6 +28,10 @@ public class UnitView : MonoBehaviour
     void LateUpdate()
     {
         if (Camera.main != null)
+        {
             transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, 0, transform.rotation.eulerAngles.z);
+        }
+
     }
 }

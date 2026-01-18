@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         // 範例生成
-        Spawn(Team.Blue, 5, new Vector3(-5, 0, 0));
+        Spawn(Team.Blue, 5, new Vector3(-5, 0));
         Spawn(Team.Red, 4, new Vector3(5, 0, 0));
     }
 
