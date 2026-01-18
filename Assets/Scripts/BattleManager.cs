@@ -9,6 +9,10 @@ public class BattleManager : MonoBehaviour
     [Header("Unit Prefab")]
     public GameObject unitPrefab;   // 拖你的 Unit Prefab 進來
 
+    [Header("Team Colors")]
+    public Color blueColor = Color.blue;
+    public Color redColor = Color.red;
+
     public List<Unit> blueUnits = new();
     public List<Unit> redUnits = new();
 
@@ -60,19 +64,19 @@ public class BattleManager : MonoBehaviour
     void HandleSeparation(List<Unit> units)
     {
         foreach (var a in units)
-        foreach (var b in units)
-        {
-            if (a == b) continue;
-
-            Vector3 diff = a.transform.position - b.transform.position;
-            float dist = diff.magnitude;
-            float minDist = a.personalRadius + b.personalRadius;
-
-            if (dist > 0 && dist < minDist)
+            foreach (var b in units)
             {
-                a.transform.position += diff.normalized * (minDist - dist) * 0.5f;
+                if (a == b) continue;
+
+                Vector3 diff = a.transform.position - b.transform.position;
+                float dist = diff.magnitude;
+                float minDist = a.personalRadius + b.personalRadius;
+
+                if (dist > 0 && dist < minDist)
+                {
+                    a.transform.position += diff.normalized * (minDist - dist) * 0.5f;
+                }
             }
-        }
     }
 
     public void OnUnitDeath(Unit unit)
@@ -84,6 +88,7 @@ public class BattleManager : MonoBehaviour
     // ==================== Spawn 函數 ====================
     void Spawn(Team team, int count, Vector3 center)
     {
+
         for (int i = 0; i < count; i++)
         {
             Vector3 pos = center + Random.insideUnitSphere;
@@ -93,10 +98,21 @@ public class BattleManager : MonoBehaviour
             var u = go.GetComponent<Unit>();
             u.team = team;
 
+            ApplyTeamColor(u);
+
             if (team == Team.Blue)
                 blueUnits.Add(u);
             else
                 redUnits.Add(u);
         }
+    }
+
+    void ApplyTeamColor(Unit unit)
+    {
+        var renderer = unit.GetComponentInChildren<Renderer>();
+        if (renderer == null) return;
+
+        Color target = unit.team == Team.Blue ? blueColor : redColor;
+        renderer.material.color = target; // material to avoid shared material side effects
     }
 }
