@@ -98,9 +98,6 @@ public class BattleManager : MonoBehaviour
             var go = Instantiate(unitPrefab, pos, unitPrefab.transform.rotation);
             var u = go.GetComponent<Unit>();
             u.team = team;
-
-            ApplyTeamColor(u);
-
             if (team == Team.Blue)
                 blueUnits.Add(u);
             else
@@ -111,12 +108,4 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void ApplyTeamColor(Unit unit)
-    {
-        var renderer = unit.GetComponentInChildren<Renderer>();
-        if (renderer == null) return;
-
-        Color target = unit.team == Team.Blue ? blueColor : redColor;
-        renderer.material.color = target; // material to avoid shared material side effects
-    }
 }
