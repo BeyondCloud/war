@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HpBar : MonoBehaviour
+public class UnitView : MonoBehaviour
 {
     public Image hpFill;
     private Unit unit;
