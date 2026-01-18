@@ -7,10 +7,11 @@ public class BattleManager : MonoBehaviour
 
     // ==================== 這裡加上 Prefab 屬性 ====================
     [Header("Unit Prefab")]
-    public GameObject unitPrefab;
 
     public List<Unit> blueUnits = new();
     public List<Unit> redUnits = new();
+    public GameObject dinoPrefab;
+    public GameObject goblinPrefab;
 
     void Awake()
     {
@@ -20,8 +21,8 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         // 範例生成
-        Spawn(Team.Blue, 5, new Vector3(-5, 0));
-        Spawn(Team.Red, 4, new Vector3(5, 0, 0));
+        Spawn(Team.Blue, dinoPrefab, 10, new Vector3(-5, 0));
+        Spawn(Team.Red, goblinPrefab, 5, new Vector3(5, 0, 0));
     }
 
     void Update()
@@ -82,7 +83,7 @@ public class BattleManager : MonoBehaviour
     }
 
     // ==================== Spawn 函數 ====================
-    void Spawn(Team team, int count, Vector3 center)
+    void Spawn(Team team, GameObject unitPrefab, int count, Vector3 center)
     {
 
         for (int i = 0; i < count; i++)
