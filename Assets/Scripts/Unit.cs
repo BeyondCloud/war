@@ -61,6 +61,9 @@ public class Unit : MonoBehaviour
     {
         Vector3 dir = (target - transform.position).normalized;
         transform.position += dir * moveSpeed * Time.deltaTime;
+        //Flip transform according to movement direction
+        if (dir.x != 0)
+            transform.localScale = new Vector3(Mathf.Sign(dir.x), 1, 1);
     }
 
     void TryAttack(Unit target)

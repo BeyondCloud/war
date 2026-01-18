@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+/*
+管理所有單位生命週期 (生成 死亡 清單 移動方式)
+*/
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
@@ -82,7 +84,6 @@ public class BattleManager : MonoBehaviour
         redUnits.Remove(unit);
     }
 
-    // ==================== Spawn 函數 ====================
     void Spawn(Team team, GameObject unitPrefab, int count, Vector3 center)
     {
 
@@ -99,7 +100,6 @@ public class BattleManager : MonoBehaviour
                 blueUnits.Add(u);
             else
             {
-                u.transform.localScale = new Vector3(-1, 1, 1); // Flip for red team
                 redUnits.Add(u);
             }
         }
