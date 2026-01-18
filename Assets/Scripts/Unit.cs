@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [Header("Stats")]
+    [HideInInspector]
     public float maxHp = 100;
     public float hp;
     public float atk = 10;

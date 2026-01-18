@@ -7,11 +7,7 @@ public class BattleManager : MonoBehaviour
 
     // ==================== 這裡加上 Prefab 屬性 ====================
     [Header("Unit Prefab")]
-    public GameObject unitPrefab;   // 拖你的 Unit Prefab 進來
-
-    [Header("Team Colors")]
-    public Color blueColor = Color.blue;
-    public Color redColor = Color.red;
+    public GameObject unitPrefab;
 
     public List<Unit> blueUnits = new();
     public List<Unit> redUnits = new();
