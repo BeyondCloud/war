@@ -148,11 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0786d4a9b26ce4653bd49b6338f09dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 4205877847313343926, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
-  blueColor: {r: 0, g: 0, b: 1, a: 1}
-  redColor: {r: 1, g: 0, b: 0, a: 1}
   blueUnits: []
   redUnits: []
+  dinoPrefab: {fileID: 9151605471912841348, guid: fa4f54004104471409c70dd614692e75, type: 3}
+  goblinPrefab: {fileID: 645960303788352080, guid: 216b72524789120498235e7dddd8d163, type: 3}
 --- !u!4 &455485017
 Transform:
   m_ObjectHideFlags: 0
@@ -591,7 +590,7 @@ Transform:
   m_GameObject: {fileID: 2038232674}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 4, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -627,7 +626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4205877847313343926, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
       propertyPath: m_Name
-      value: Blue
+      value: UnitBase
       objectReference: {fileID: 0}
     - target: {fileID: 4205877847313343926, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
       propertyPath: m_IsActive
