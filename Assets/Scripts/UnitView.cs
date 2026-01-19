@@ -9,17 +9,22 @@ public class UnitView : MonoBehaviour
     public Image unitImg;
     public Canvas canvas;
     private Unit unit;
-    private Color originalHpColor;
 
-    void Awake()
+    // This get called after unit is initialized
+    void Start()
     {
-        unit = GetComponentInParent<Unit>();
-        if (hpFill != null)
-            originalHpColor = hpFill.color;
-        if (unit == null)
+        unit = GetComponent<Unit>();
+        if(unit.team == Team.Blue)
         {
-            Debug.LogError("Failed to retrieve Unit component.");
+            Debug.Log("Blue Unit View Initialized");
+            hpFill.color = Color.green;
         }
+        else
+        {
+            Debug.Log("Red Unit View Initialized");
+            hpFill.color = Color.red;
+        }
+        Debug.Log(unit.team.ToString());
     }
 
     void Update()
@@ -43,12 +48,6 @@ public class UnitView : MonoBehaviour
         {
             float ratio = unit.maxHp > 0 ? Mathf.Clamp01(unit.hp / unit.maxHp) : 0f;
             hpFill.fillAmount = ratio;
-            if (ratio < 0.3f)
-                hpFill.color = Color.red;
-            else if (ratio < 0.7f)
-                hpFill.color = Color.yellow;
-            else
-                hpFill.color = originalHpColor;
         }
     }
     void updateFacingDirection()
