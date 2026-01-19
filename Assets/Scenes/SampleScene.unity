@@ -119,54 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &455485015
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 455485017}
-  - component: {fileID: 455485016}
-  m_Layer: 0
-  m_Name: BattleManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &455485016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455485015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0786d4a9b26ce4653bd49b6338f09dcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blueUnits: []
-  redUnits: []
-  dinoPrefab: {fileID: 9151605471912841348, guid: fa4f54004104471409c70dd614692e75, type: 3}
-  goblinPrefab: {fileID: 645960303788352080, guid: 216b72524789120498235e7dddd8d163, type: 3}
---- !u!4 &455485017
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455485015}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 913350074}
+  - component: {fileID: 913350075}
   m_Layer: 0
   m_Name: Units
   m_TagString: Untagged
@@ -296,6 +249,22 @@ Transform:
   - {fileID: 1815450901}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &913350075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913350073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0786d4a9b26ce4653bd49b6338f09dcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleManager
+  blueUnits: []
+  redUnits: []
+  dinoPrefab: {fileID: 9151605471912841348, guid: fa4f54004104471409c70dd614692e75, type: 3}
+  goblinPrefab: {fileID: 645960303788352080, guid: 216b72524789120498235e7dddd8d163, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +593,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 700921517152112211, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
+      propertyPath: personalRadius
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4205877847313343926, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
       propertyPath: m_Name
       value: UnitBase
@@ -634,7 +607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5667164650790984448, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -6.04
       objectReference: {fileID: 0}
     - target: {fileID: 5667164650790984448, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -687,5 +660,4 @@ SceneRoots:
   - {fileID: 2038232678}
   - {fileID: 1953304992}
   - {fileID: 1262861428}
-  - {fileID: 455485017}
   - {fileID: 913350074}
