@@ -34,10 +34,6 @@ public class UnitController : MonoBehaviour
 
         foreach (var u in redUnits)
             u.Tick();
-
-        // HandleSeparation relied on manual physics. 
-        // With NavMeshAgents, they handle their own avoidance via the NavMesh system.
-        // We can remove the manual separation call.
     }
 
     public Unit FindNearestEnemy(Unit self)
