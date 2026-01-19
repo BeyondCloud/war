@@ -3,9 +3,9 @@ using System.Collections.Generic;
 /*
 管理所有單位生命週期 (生成 死亡 清單 移動方式)
 */
-public class BattleManager : MonoBehaviour
+public class UnitController : MonoBehaviour
 {
-    public static BattleManager Instance;
+    public static UnitController Instance;
 
     // ==================== 這裡加上 Prefab 屬性 ====================
     [Header("Unit Prefab")]

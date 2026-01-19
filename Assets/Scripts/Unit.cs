@@ -37,7 +37,7 @@ public class Unit : MonoBehaviour
 
     void Die()
     {
-        BattleManager.Instance.OnUnitDeath(this);
+        UnitController.Instance.OnUnitDeath(this);
         Destroy(gameObject);
     }
 
@@ -50,7 +50,7 @@ public class Unit : MonoBehaviour
             cooldown -= Time.deltaTime;
 
         // 每幀重新找目標
-        currentTarget = BattleManager.Instance.FindNearestEnemy(this);
+        currentTarget = UnitController.Instance.FindNearestEnemy(this);
 
         if (!currentTarget) return;
 
