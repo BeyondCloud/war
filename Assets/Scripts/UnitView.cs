@@ -16,15 +16,12 @@ public class UnitView : MonoBehaviour
         unit = GetComponent<Unit>();
         if(unit.team == Team.Blue)
         {
-            Debug.Log("Blue Unit View Initialized");
             hpFill.color = Color.green;
         }
         else
         {
-            Debug.Log("Red Unit View Initialized");
             hpFill.color = Color.red;
         }
-        Debug.Log(unit.team.ToString());
     }
 
     void Update()

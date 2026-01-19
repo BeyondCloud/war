@@ -23,8 +23,8 @@ public class UnitController : MonoBehaviour
     void Start()
     {
         // 範例生成
-        Spawn(Team.Blue, dinoPrefab, 20, new Vector3(-5, 0));
-        Spawn(Team.Red, goblinPrefab, 20, new Vector3(5, 0, 0));
+        Spawn(Team.Blue, dinoPrefab, 5, new Vector3(-7, 0));
+        Spawn(Team.Red, goblinPrefab, 5, new Vector3(7, 0, 0));
     }
 
     void Update()
@@ -60,7 +60,25 @@ public class UnitController : MonoBehaviour
         }
         return best;
     }
+    public Unit FindLowHpEnemy(Unit self)
+    {
+        var enemies = self.team == Team.Blue ? redUnits : blueUnits;
 
+        Unit best = null;
+        float minHp = float.MaxValue;
+
+        foreach (var e in enemies)
+        {
+            if (!e || !e.IsAlive) continue;
+
+            if (e.hp < minHp)
+            {
+                minHp = e.hp;
+                best = e;
+            }
+        }
+        return best;
+    }
     // Removed HandleSeparation logic since NavMeshAgents are now used.
 
     public void OnUnitDeath(Unit unit)

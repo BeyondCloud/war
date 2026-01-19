@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour
     public float maxHp = 100;
     public float hp;
     public float atk = 10;
-    public float attackRange = 1.5f;
+    public float attackRange = 0.5f;
 
     [Header("Runtime")]
     public float cooldown;
@@ -31,7 +31,6 @@ public class Unit : MonoBehaviour
     }
     public void Init(Team team)
     {
-        Debug.Log(team.ToString() + " unit initialized.");
         this.team = team;
     }
     public bool IsAlive => hp > 0;
@@ -48,18 +47,22 @@ public class Unit : MonoBehaviour
         UnitController.Instance.OnUnitDeath(this);
         Destroy(gameObject);
     }
+    private Unit AssignTarget(Unit target)
+    {
+        if (cooldown > 0)
+            return UnitController.Instance.FindLowHpEnemy(this);
+        else
+            return UnitController.Instance.FindNearestEnemy(this);
 
+    }
     // 🔹 每一幀由 Manager 呼叫（不是自己 Update）
     public void Tick()
     {
         if (!IsAlive) return;
-
+        
         if (cooldown > 0)
             cooldown -= Time.deltaTime;
-
-        // 每幀重新找目標
-        currentTarget = UnitController.Instance.FindNearestEnemy(this);
-
+        currentTarget = AssignTarget(currentTarget);
         if (!currentTarget)
         {
             // No target, stop moving
