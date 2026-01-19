@@ -13,11 +13,7 @@ public class UnitView : MonoBehaviour
         unit = GetComponentInParent<Unit>();
         if (hpFill != null)
             originalHpColor = hpFill.color;
-        if (unit != null)
-        {
-            Debug.Log("Successfully retrieved Unit component.");
-        }
-        else
+        if (unit == null)
         {
             Debug.LogError("Failed to retrieve Unit component.");
         }

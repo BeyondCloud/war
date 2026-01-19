@@ -27,8 +27,8 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         // 範例生成
-        Spawn(Team.Blue, dinoPrefab, 10, new Vector3(-5, 0));
-        Spawn(Team.Red, goblinPrefab, 5, new Vector3(5, 0, 0));
+        Spawn(Team.Blue, dinoPrefab, 20, new Vector3(-5, 0));
+        Spawn(Team.Red, goblinPrefab, 20, new Vector3(5, 0, 0));
     }
 
     void Update()
@@ -135,7 +135,7 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            Vector3 pos = center + Random.insideUnitSphere;
+            Vector3 pos = center + Random.insideUnitSphere*5f;
             pos.y = 0;
 
             // Keep prefab's authored rotation (Quaternion.identity would zero it out)
