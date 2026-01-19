@@ -60,7 +60,7 @@ public class UnitController : MonoBehaviour
         }
         return best;
     }
-    
+
     // Removed HandleSeparation logic since NavMeshAgents are now used.
 
     public void OnUnitDeath(Unit unit)
@@ -74,13 +74,13 @@ public class UnitController : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            Vector3 pos = center + Random.insideUnitSphere*5f;
+            Vector3 pos = center + Random.insideUnitSphere * 5f;
             pos.y = 0;
 
             // Keep prefab's authored rotation (Quaternion.identity would zero it out)
             var go = Instantiate(unitPrefab, pos, unitPrefab.transform.rotation);
+            go.GetComponent<Unit>().Init(team);
             var u = go.GetComponent<Unit>();
-            u.team = team;
             if (team == Team.Blue)
                 blueUnits.Add(u);
             else

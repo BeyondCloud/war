@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
 
     [HideInInspector]
     public Vector3 faceDirection = Vector3.right;
-    
+
     private NavMeshAgent agent;
     private Unit currentTarget;
 
@@ -27,9 +27,13 @@ public class Unit : MonoBehaviour
         hp = maxHp;
         agent = GetComponent<NavMeshAgent>();
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
-        agent.stoppingDistance = attackRange * 0.8f; 
+        agent.stoppingDistance = attackRange * 0.8f;
     }
-
+    public void Init(Team team)
+    {
+        Debug.Log(team.ToString() + " unit initialized.");
+        this.team = team;
+    }
     public bool IsAlive => hp > 0;
 
     public void TakeDamage(float amount)
@@ -58,9 +62,9 @@ public class Unit : MonoBehaviour
 
         if (!currentTarget)
         {
-             // No target, stop moving
-             if(agent.isOnNavMesh) agent.ResetPath();
-             return;
+            // No target, stop moving
+            if (agent.isOnNavMesh) agent.ResetPath();
+            return;
         }
 
         float dist = Vector3.Distance(transform.position, currentTarget.transform.position);
@@ -68,7 +72,7 @@ public class Unit : MonoBehaviour
         if (dist <= attackRange)
         {
             // Stop moving to attack
-            if(agent.isOnNavMesh) agent.ResetPath();
+            if (agent.isOnNavMesh) agent.ResetPath();
             TryAttack(currentTarget);
         }
         else
@@ -82,7 +86,7 @@ public class Unit : MonoBehaviour
         if (agent.isOnNavMesh)
         {
             agent.SetDestination(target);
-            
+
             // Optional: Face direction logic if needed for visuals using agent.velocity
             if (agent.velocity.x != 0)
                 faceDirection = new Vector3(Mathf.Sign(agent.velocity.x), 0, 0);
