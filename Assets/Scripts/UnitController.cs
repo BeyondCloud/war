@@ -23,8 +23,8 @@ public class UnitController : MonoBehaviour
     void Start()
     {
         // 範例生成
-        Spawn(Team.Blue, dinoPrefab, 5, new Vector3(-7, 0));
-        Spawn(Team.Red, goblinPrefab, 5, new Vector3(7, 0, 0));
+        Spawn(Team.Blue, dinoPrefab, 10, new Vector3(-10, 0));
+        Spawn(Team.Red, goblinPrefab, 10, new Vector3(10, 0, 0));
     }
 
     void Update()

@@ -9,6 +9,7 @@ public class UnitView : MonoBehaviour
     public Image unitImg;
     public Canvas canvas;
     private Unit unit;
+    
 
     // This get called after unit is initialized
     void Start()
@@ -28,7 +29,7 @@ public class UnitView : MonoBehaviour
     {
         updateHpBar();
         updateFacingDirection();
-    }
+   }
 
     void LateUpdate()
     {

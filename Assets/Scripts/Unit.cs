@@ -3,6 +3,8 @@ https://www.notion.so/MVC-2edf98e4af3c80c5998ee57016ca5401
 */
 using UnityEngine;
 using UnityEngine.AI;
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(LineRenderer))]
 
 public class Unit : MonoBehaviour
 {
@@ -15,19 +17,47 @@ public class Unit : MonoBehaviour
     [Header("Runtime")]
     public float cooldown;
     public Team team;
-
+    public Unit currentTarget;
     [HideInInspector]
     public Vector3 faceDirection = Vector3.right;
 
     private NavMeshAgent agent;
-    private Unit currentTarget;
-
+    private LineRenderer lineRenderer;
+    private Animator animator;
     void Awake()
     {
         hp = maxHp;
         agent = GetComponent<NavMeshAgent>();
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
         agent.stoppingDistance = attackRange * 0.8f;
+        
+    }
+    void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.15f;
+        lineRenderer.endWidth = 0.15f;
+        lineRenderer.positionCount = 0;
+
+        animator = GetComponent<Animator>();
+    }
+    void DrawPath()
+    {
+        if(team == Team.Blue)
+            lineRenderer.material.color = Color.blue;
+        else
+            lineRenderer.material.color = Color.red;
+        lineRenderer.positionCount = agent.path.corners.Length;
+        lineRenderer.SetPosition(0,transform.position);
+        if (agent.path.corners.Length < 2 )
+        {
+            return;
+        }
+        for (int i = 1; i < agent.path.corners.Length; i++)
+        {
+            Vector3 pointPosition = new Vector3(agent.path.corners[i].x, agent.path.corners[i].y, agent.path.corners[i].z);
+            lineRenderer.SetPosition(i, pointPosition);
+        }
     }
     public void Init(Team team)
     {
@@ -37,6 +67,7 @@ public class Unit : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        animator.SetTrigger("hurt");
         hp -= amount;
         if (hp <= 0)
             Die();
@@ -47,22 +78,36 @@ public class Unit : MonoBehaviour
         UnitController.Instance.OnUnitDeath(this);
         Destroy(gameObject);
     }
-    private Unit AssignTarget(Unit target)
+    private Unit AssignTarget()
     {
-        if (cooldown > 0)
-            return UnitController.Instance.FindLowHpEnemy(this);
-        else
-            return UnitController.Instance.FindNearestEnemy(this);
+        return UnitController.Instance.FindNearestEnemy(this);
+    }
 
+    float GetPathLength(NavMeshPath path)
+    {
+        float length = 0.0f;
+        if (path.corners.Length < 2) return length;
+
+        for (int i = 0; i < path.corners.Length - 1; i++)
+        {
+            length += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+        }
+        return length;
     }
     // 🔹 每一幀由 Manager 呼叫（不是自己 Update）
     public void Tick()
     {
+        animator.SetFloat("speed", agent.velocity.magnitude);
+   
+        if (agent.hasPath)
+        {
+            DrawPath();
+        }
         if (!IsAlive) return;
         
         if (cooldown > 0)
             cooldown -= Time.deltaTime;
-        currentTarget = AssignTarget(currentTarget);
+        currentTarget = AssignTarget();
         if (!currentTarget)
         {
             // No target, stop moving
