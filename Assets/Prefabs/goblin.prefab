@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 700921517152112211, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
+      propertyPath: team
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4205877847313343926, guid: a556e84f287dd4c5fa9f01ce50861ad9, type: 3}
       propertyPath: m_Name
       value: goblin
