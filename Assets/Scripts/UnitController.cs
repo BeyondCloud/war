@@ -15,10 +15,6 @@ public class UnitController : MonoBehaviour
     public GameObject dinoPrefab;
     public GameObject goblinPrefab;
 
-    // Spatial Hashing
-    private Dictionary<Vector2Int, List<Unit>> grid = new Dictionary<Vector2Int, List<Unit>>();
-    private float gridCellSize = 2f; 
-
     void Awake()
     {
         Instance = this;
@@ -39,8 +35,9 @@ public class UnitController : MonoBehaviour
         foreach (var u in redUnits)
             u.Tick();
 
-        HandleSeparation(blueUnits);
-        HandleSeparation(redUnits);
+        // HandleSeparation relied on manual physics. 
+        // With NavMeshAgents, they handle their own avoidance via the NavMesh system.
+        // We can remove the manual separation call.
     }
 
     public Unit FindNearestEnemy(Unit self)
@@ -63,66 +60,8 @@ public class UnitController : MonoBehaviour
         }
         return best;
     }
-
-    void HandleSeparation(List<Unit> units)
-    {
-        // 1. Clear and Build Grid
-        grid.Clear();
-        
-        foreach (var u in units)
-        {
-            if (!u || !u.IsAlive) continue;
-            
-            Vector2Int key = new Vector2Int(
-                Mathf.FloorToInt(u.transform.position.x / gridCellSize),
-                Mathf.FloorToInt(u.transform.position.z / gridCellSize)
-            );
-
-            if (!grid.ContainsKey(key))
-            {
-                grid[key] = new List<Unit>();
-            }
-            grid[key].Add(u);
-        }
-
-        // 2. Optimized Collision Check
-        foreach (var a in units)
-        {
-            if (!a || !a.IsAlive) continue;
-
-            Vector2Int key = new Vector2Int(
-                Mathf.FloorToInt(a.transform.position.x / gridCellSize),
-                Mathf.FloorToInt(a.transform.position.z / gridCellSize)
-            );
-
-            // Check neighbors (3x3 area)
-            for (int x = -1; x <= 1; x++)
-            {
-                for (int y = -1; y <= 1; y++)
-                {
-                    Vector2Int neighborKey = key + new Vector2Int(x, y);
-                    if (grid.TryGetValue(neighborKey, out var neighbors))
-                    {
-                        foreach (var b in neighbors)
-                        {
-                            if (a == b) continue;
-
-                            Vector3 diff = a.transform.position - b.transform.position;
-                            float sqrDist = diff.sqrMagnitude;
-                            float minDist = a.personalRadius + b.personalRadius;
-
-                            // Using squared distance check to avoid Sqrt when not needed
-                            if (sqrDist > 0 && sqrDist < minDist * minDist)
-                            {
-                                float dist = Mathf.Sqrt(sqrDist);
-                                a.transform.position += diff / dist * (minDist - dist) * 0.5f;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    
+    // Removed HandleSeparation logic since NavMeshAgents are now used.
 
     public void OnUnitDeath(Unit unit)
     {

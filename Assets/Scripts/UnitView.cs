@@ -7,6 +7,7 @@ public class UnitView : MonoBehaviour
 {
     public Image hpFill;
     public Image unitImg;
+    public Canvas canvas;
     private Unit unit;
     private Color originalHpColor;
 
@@ -25,6 +26,15 @@ public class UnitView : MonoBehaviour
     {
         updateHpBar();
         updateFacingDirection();
+    }
+
+    void LateUpdate()
+    {
+        // 鎖定圖片旋轉，使其面向 Y 軸 (平躺)，且不隨 Agent 旋轉
+        if (unitImg)
+        {
+            canvas.transform.rotation = Quaternion.Euler(90, 0, 0);
+        }
     }
     
     void updateHpBar()

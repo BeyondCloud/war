@@ -2,6 +2,7 @@
 https://www.notion.so/MVC-2edf98e4af3c80c5998ee57016ca5401
 */
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
@@ -9,9 +10,7 @@ public class Unit : MonoBehaviour
     public float maxHp = 100;
     public float hp;
     public float atk = 10;
-    public float moveSpeed = 4f;
     public float attackRange = 1.5f;
-    public float personalRadius = 0.5f;
 
     [Header("Runtime")]
     public float cooldown;
@@ -19,11 +18,16 @@ public class Unit : MonoBehaviour
 
     [HideInInspector]
     public Vector3 faceDirection = Vector3.right;
-    Unit currentTarget;
+    
+    private NavMeshAgent agent;
+    private Unit currentTarget;
 
     void Awake()
     {
         hp = maxHp;
+        agent = GetComponent<NavMeshAgent>();
+        // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
+        agent.stoppingDistance = attackRange * 0.8f; 
     }
 
     public bool IsAlive => hp > 0;
@@ -52,23 +56,37 @@ public class Unit : MonoBehaviour
         // 每幀重新找目標
         currentTarget = UnitController.Instance.FindNearestEnemy(this);
 
-        if (!currentTarget) return;
+        if (!currentTarget)
+        {
+             // No target, stop moving
+             if(agent.isOnNavMesh) agent.ResetPath();
+             return;
+        }
 
         float dist = Vector3.Distance(transform.position, currentTarget.transform.position);
 
         if (dist <= attackRange)
+        {
+            // Stop moving to attack
+            if(agent.isOnNavMesh) agent.ResetPath();
             TryAttack(currentTarget);
+        }
         else
+        {
             MoveTowards(currentTarget.transform.position);
+        }
     }
 
     void MoveTowards(Vector3 target)
     {
-        Vector3 dir = (target - transform.position).normalized;
-        transform.position += dir * moveSpeed * Time.deltaTime;
-        //Flip transform according to movement direction
-        if (dir.x != 0)
-            faceDirection = new Vector3(Mathf.Sign(dir.x), 0, 0);
+        if (agent.isOnNavMesh)
+        {
+            agent.SetDestination(target);
+            
+            // Optional: Face direction logic if needed for visuals using agent.velocity
+            if (agent.velocity.x != 0)
+                faceDirection = new Vector3(Mathf.Sign(agent.velocity.x), 0, 0);
+        }
     }
 
     void TryAttack(Unit target)
