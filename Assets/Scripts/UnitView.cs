@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+/*
+https://www.notion.so/MVC-2edf98e4af3c80c5998ee57016ca5401
+*/
 public class UnitView : MonoBehaviour
 {
     public Image hpFill;

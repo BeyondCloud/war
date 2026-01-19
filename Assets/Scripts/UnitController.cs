@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 /*
-管理所有單位生命週期 (生成 死亡 清單 移動方式)
+https://www.notion.so/MVC-2edf98e4af3c80c5998ee57016ca5401
 */
 public class UnitController : MonoBehaviour
 {

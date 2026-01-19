@@ -1,5 +1,5 @@
 /*
-管理Unit的數據, 跟顯示無關的行為, 顯示相關的要丟到UnitView.cs
+https://www.notion.so/MVC-2edf98e4af3c80c5998ee57016ca5401
 */
 using UnityEngine;
 
