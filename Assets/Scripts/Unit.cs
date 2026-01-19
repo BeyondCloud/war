@@ -3,8 +3,8 @@ https://www.notion.so/MVC-2edf98e4af3c80c5998ee57016ca5401
 */
 using UnityEngine;
 using UnityEngine.AI;
-[RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(LineRenderer))]
+// [RequireComponent(typeof(NavMeshAgent))]
+// [RequireComponent(typeof(LineRenderer))]
 
 public class Unit : MonoBehaviour
 {
@@ -17,19 +17,23 @@ public class Unit : MonoBehaviour
     [Header("Runtime")]
     public float cooldown;
     public Team team;
-    public Unit currentTarget;
+    
     [HideInInspector]
     public Vector3 faceDirection = Vector3.right;
-
+    [HideInInspector]
+    public Unit currentTarget;
+    
     private NavMeshAgent agent;
     private LineRenderer lineRenderer;
-    private Animator animator;
+    [SerializeField]
+    private Animator unitAnimator;
     void Awake()
     {
         hp = maxHp;
         agent = GetComponent<NavMeshAgent>();
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
         agent.stoppingDistance = attackRange * 0.8f;
+        agent.updateRotation = false; // We handle rotation manually
         
     }
     void Start()
@@ -38,8 +42,6 @@ public class Unit : MonoBehaviour
         lineRenderer.startWidth = 0.15f;
         lineRenderer.endWidth = 0.15f;
         lineRenderer.positionCount = 0;
-
-        animator = GetComponent<Animator>();
     }
     void DrawPath()
     {
@@ -67,7 +69,7 @@ public class Unit : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        animator.SetTrigger("hurt");
+        unitAnimator.SetTrigger("hurt");
         hp -= amount;
         if (hp <= 0)
             Die();
@@ -97,8 +99,7 @@ public class Unit : MonoBehaviour
     // 🔹 每一幀由 Manager 呼叫（不是自己 Update）
     public void Tick()
     {
-        animator.SetFloat("speed", agent.velocity.magnitude);
-   
+        unitAnimator.SetFloat("speed", agent.velocity.magnitude);
         if (agent.hasPath)
         {
             DrawPath();

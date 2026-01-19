@@ -24,7 +24,7 @@ public class UnitController : MonoBehaviour
     {
         // 範例生成
         Spawn(Team.Blue, dinoPrefab, 10, new Vector3(-10, 0));
-        Spawn(Team.Red, goblinPrefab, 10, new Vector3(10, 0, 0));
+        Spawn(Team.Red, goblinPrefab, 1, new Vector3(10, 0, 0));
     }
 
     void Update()
@@ -92,7 +92,7 @@ public class UnitController : MonoBehaviour
             pos.y = 0;
 
             // Keep prefab's authored rotation (Quaternion.identity would zero it out)
-            var go = Instantiate(unitPrefab, pos, unitPrefab.transform.rotation);
+            var go = Instantiate(unitPrefab, pos, Quaternion.identity);
             go.GetComponent<Unit>().Init(team);
             var u = go.GetComponent<Unit>();
             if (team == Team.Blue)

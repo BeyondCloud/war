@@ -6,7 +6,6 @@ https://www.notion.so/MVC-2edf98e4af3c80c5998ee57016ca5401
 public class UnitView : MonoBehaviour
 {
     public Image hpFill;
-    public Image unitImg;
     public Canvas canvas;
     private Unit unit;
     
@@ -34,10 +33,8 @@ public class UnitView : MonoBehaviour
     void LateUpdate()
     {
         // 鎖定圖片旋轉，使其面向 Y 軸 (平躺)，且不隨 Agent 旋轉
-        if (unitImg)
-        {
-            canvas.transform.rotation = Quaternion.Euler(90, 0, 0);
-        }
+        canvas.transform.rotation = Quaternion.Euler(90, 0, 0);
+        // 鎖定Unit y 方向旋轉
     }
     
     void updateHpBar()
@@ -50,11 +47,11 @@ public class UnitView : MonoBehaviour
     }
     void updateFacingDirection()
     {
-        if (unitImg && unit)
+        if (unit)
         {
-            var scale = unitImg.transform.localScale;
+            var scale = unit.transform.localScale;
             scale.x = Mathf.Abs(scale.x) * unit.faceDirection.x;
-            unitImg.transform.localScale = scale;
+            unit.transform.localScale = scale;
         }
     }
 }
