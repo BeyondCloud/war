@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class UnitView : MonoBehaviour
 {
     public Image hpFill;
+    public Image unitImg;
     private Unit unit;
     private Color originalHpColor;
 
@@ -25,6 +26,7 @@ public class UnitView : MonoBehaviour
     void Update()
     {
         updateHpBar();
+        updateFacingDirection();
     }
     
     void updateHpBar()
@@ -39,6 +41,15 @@ public class UnitView : MonoBehaviour
                 hpFill.color = Color.yellow;
             else
                 hpFill.color = originalHpColor;
+        }
+    }
+    void updateFacingDirection()
+    {
+        if (unitImg && unit)
+        {
+            var scale = unitImg.transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * unit.faceDirection.x;
+            unitImg.transform.localScale = scale;
         }
     }
 }

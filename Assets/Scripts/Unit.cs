@@ -1,3 +1,6 @@
+/*
+管理Unit的數據, 跟顯示無關的行為, 顯示相關的要丟到UnitView.cs
+*/
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -14,6 +17,8 @@ public class Unit : MonoBehaviour
     public float cooldown;
     public Team team;
 
+    [HideInInspector]
+    public Vector3 faceDirection = Vector3.right;
     Unit currentTarget;
 
     void Awake()
@@ -63,7 +68,7 @@ public class Unit : MonoBehaviour
         transform.position += dir * moveSpeed * Time.deltaTime;
         //Flip transform according to movement direction
         if (dir.x != 0)
-            transform.localScale = new Vector3(Mathf.Sign(dir.x), 1, 1);
+            faceDirection = new Vector3(Mathf.Sign(dir.x), 0, 0);
     }
 
     void TryAttack(Unit target)

@@ -205,6 +205,7 @@ MonoBehaviour:
   personalRadius: 0.5
   cooldown: 0
   team: 0
+  faceDirection: {x: 1, y: 0, z: 0}
 --- !u!114 &1033094563219331148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HpBar
   hpFill: {fileID: 742440881108744480}
+  unitImg: {fileID: 4307288620862954131}
 --- !u!1 &4272299527281167846
 GameObject:
   m_ObjectHideFlags: 0
