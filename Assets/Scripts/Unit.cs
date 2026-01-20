@@ -34,6 +34,7 @@ public class Unit : MonoBehaviour
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
         agent.stoppingDistance = attackRange * 0.8f;
         agent.updateRotation = false; // We handle rotation manually
+        // agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         
     }
     void Start()
@@ -85,17 +86,6 @@ public class Unit : MonoBehaviour
         return UnitController.Instance.FindNearestEnemy(this);
     }
 
-    float GetPathLength(NavMeshPath path)
-    {
-        float length = 0.0f;
-        if (path.corners.Length < 2) return length;
-
-        for (int i = 0; i < path.corners.Length - 1; i++)
-        {
-            length += Vector3.Distance(path.corners[i], path.corners[i + 1]);
-        }
-        return length;
-    }
     // 🔹 每一幀由 Manager 呼叫（不是自己 Update）
     public void Tick()
     {
