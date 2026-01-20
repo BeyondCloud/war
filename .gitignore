@@ -98,7 +98,7 @@ Assets/StreamingAssets/aa/
 [Ll]ibrary/Bee/
 [Ll]ibrary/BuildPlayerData/
 [Ll]ibrary/TextureCache/
-[Ll]ibrary/ShaderCache/
-[Ll]ibrary/Cache/
 
-PANICPUMPKIN
+# Ignore all PANICPUMPKIN except Anim folder
+Assets/PANICPUMPKIN/**/*.*
+!Assets/PANICPUMPKIN/**/Anim/*
