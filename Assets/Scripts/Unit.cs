@@ -34,6 +34,9 @@ public class Unit : MonoBehaviour
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
         agent.stoppingDistance = attackRange * 0.8f;
         agent.updateRotation = false; // We handle rotation manually
+        
+        // 設置 NavMeshAgent 為確定性模式
+        agent.avoidancePriority = 50; // 統一優先級, 沒有的話會有隨機性
         // agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         
     }

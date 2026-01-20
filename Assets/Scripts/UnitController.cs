@@ -15,6 +15,10 @@ public class UnitController : MonoBehaviour
     // public List<Unit> redUnits = new();
     public List<Unit> blueUnits;
     public List<Unit> redUnits;
+    
+    [Header("Random Seed")]
+    [SerializeField] private int randomSeed = 12345;
+    [SerializeField] private bool useFixedSeed = true;
     [SerializeField] private Transform blueUnitsRoot;
     [SerializeField] private Transform redUnitsRoot;
     public GameObject dinoPrefab;
@@ -23,6 +27,14 @@ public class UnitController : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        
+        // 設置隨機種子以確保結果一致
+        if (useFixedSeed)
+        {
+            Random.InitState(randomSeed);
+            Debug.Log($"Ramdom Seed: {randomSeed}");
+        }
+        
         blueUnits = blueUnitsRoot.GetComponentsInChildren<Unit>().ToList();
         redUnits = redUnitsRoot.GetComponentsInChildren<Unit>().ToList();
         //set team
