@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour
 
     [Header("Runtime")]
     public float cooldown;
-    public Team team;
+    [HideInInspector]public Team team;
     
     [HideInInspector]
     public Vector3 faceDirection = Vector3.right;

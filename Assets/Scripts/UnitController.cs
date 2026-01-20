@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 /*
@@ -10,30 +11,48 @@ public class UnitController : MonoBehaviour
     // ==================== 這裡加上 Prefab 屬性 ====================
     [Header("Unit Prefab")]
 
-    public List<Unit> blueUnits = new();
-    public List<Unit> redUnits = new();
+    // public List<Unit> blueUnits = new();
+    // public List<Unit> redUnits = new();
+    public List<Unit> blueUnits;
+    public List<Unit> redUnits;
+    [SerializeField] private Transform blueUnitsRoot;
+    [SerializeField] private Transform redUnitsRoot;
     public GameObject dinoPrefab;
     public GameObject goblinPrefab;
 
     void Awake()
     {
         Instance = this;
+        blueUnits = blueUnitsRoot.GetComponentsInChildren<Unit>().ToList();
+        redUnits = redUnitsRoot.GetComponentsInChildren<Unit>().ToList();
+        //set team
+        foreach(var u in blueUnits)
+            u.team = Team.Blue;
+
+        foreach(var u in redUnits)
+            u.team = Team.Red;
     }
 
     void Start()
     {
         // 範例生成
-        Spawn(Team.Blue, dinoPrefab, 10, new Vector3(-10, 0));
-        Spawn(Team.Red, goblinPrefab, 10, new Vector3(10, 0, 0));
+        // Spawn(Team.Blue, dinoPrefab, 10, new Vector3(-10, 0));
+        // Spawn(Team.Red, goblinPrefab, 10, new Vector3(10, 0, 0));
     }
 
     void Update()
     {
-        foreach (var u in blueUnits)
-            u.Tick();
+        for (int i = blueUnits.Count - 1; i >= 0; i--)
+        {
+            if (i < blueUnits.Count)
+                blueUnits[i].Tick();
+        }
 
-        foreach (var u in redUnits)
-            u.Tick();
+        for (int i = redUnits.Count - 1; i >= 0; i--)
+        {
+            if (i < redUnits.Count)
+                redUnits[i].Tick();
+        }
     }
 
     float zWeight = 1.0f; // Adjust this value to control Z-axis penalty

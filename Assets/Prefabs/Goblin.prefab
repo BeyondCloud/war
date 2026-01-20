@@ -299,7 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 100
   hp: 0
-  atk: 15
+  atk: 20
   attackRange: 1.5
   cooldown: 0
   team: 0
