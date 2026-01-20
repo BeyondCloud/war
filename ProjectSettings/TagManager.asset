@@ -38,8 +38,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: LineDraw
+    uniqueID: 1531790863
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI_HP
+    uniqueID: 3929609327
     locked: 0
   m_RenderingLayers:
   - Default

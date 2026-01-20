@@ -47,7 +47,6 @@ public class UnitController : MonoBehaviour
 
         foreach (var e in enemies)
         {
-            if (!e || !e.IsAlive) continue;
 
             // Calculate the distance with a penalty on the Z-axis
             float d = Vector3.Distance(self.transform.position, e.transform.position);

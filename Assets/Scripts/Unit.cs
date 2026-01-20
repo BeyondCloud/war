@@ -47,9 +47,15 @@ public class Unit : MonoBehaviour
     void DrawPath()
     {
         if(team == Team.Blue)
-            lineRenderer.material.color = Color.blue;
+        {
+            lineRenderer.startColor = Color.blue;
+            lineRenderer.endColor = Color.blue;
+        }
         else
-            lineRenderer.material.color = Color.red;
+        {
+            lineRenderer.startColor = Color.red;
+            lineRenderer.endColor = Color.red;
+        }
         lineRenderer.positionCount = agent.path.corners.Length;
         lineRenderer.SetPosition(0,transform.position);
         if (agent.path.corners.Length < 2 )
