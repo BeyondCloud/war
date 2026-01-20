@@ -24,7 +24,7 @@ public class UnitController : MonoBehaviour
     {
         // 範例生成
         Spawn(Team.Blue, dinoPrefab, 10, new Vector3(-10, 0));
-        Spawn(Team.Red, goblinPrefab, 1, new Vector3(10, 0, 0));
+        Spawn(Team.Red, goblinPrefab, 10, new Vector3(10, 0, 0));
     }
 
     void Update()
@@ -35,6 +35,8 @@ public class UnitController : MonoBehaviour
         foreach (var u in redUnits)
             u.Tick();
     }
+
+    float zWeight = 1.0f; // Adjust this value to control Z-axis penalty
 
     public Unit FindNearestEnemy(Unit self)
     {
@@ -47,10 +49,14 @@ public class UnitController : MonoBehaviour
         {
             if (!e || !e.IsAlive) continue;
 
+            // Calculate the distance with a penalty on the Z-axis
             float d = Vector3.Distance(self.transform.position, e.transform.position);
-            if (d < minDist)
+            float zPenalty = Mathf.Abs(self.transform.position.z - e.transform.position.z) * zWeight; // zWeight is a factor you can define
+            float totalDist = d + zPenalty;
+
+            if (totalDist < minDist)
             {
-                minDist = d;
+                minDist = totalDist;
                 best = e;
             }
         }
