@@ -676,13 +676,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2227504104241147841, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1359887778, guid: 27d8eb6f6b41d2a4babf15c1473ad65c, type: 3}
     - target: {fileID: 3422641841260356610, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: m_Name
       value: Dino
       objectReference: {fileID: 0}
     - target: {fileID: 5654474832364076623, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: m_labelHash
-      value: 0.00000040954276
+      value: 1.2985474e-36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5654474832364076623, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
+      propertyPath: m_SpriteHash
+      value: 759160682
       objectReference: {fileID: 0}
     - target: {fileID: 5654474832364076623, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: m_CategoryHash
