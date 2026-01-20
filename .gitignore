@@ -50,7 +50,6 @@ UserSettings/
 *.msixbundle
 *.msixupload
 *.unitypackage
-*.meta
 
 # Crash, log, temp
 *.stacktrace
