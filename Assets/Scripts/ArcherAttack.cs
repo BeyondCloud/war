@@ -14,7 +14,7 @@ public class ArcherAttack : IAttack
         this.arcOffset = arcOffset;
     }
 
-    public void Attack(Unit attacker, Unit target, float delay_sec = 0f)
+    public void Attack(Unit attacker, Unit target)
     {
         coroutineRunner.StartCoroutine(ProjectileRoutine(attacker, target));
     }

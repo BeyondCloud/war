@@ -172,8 +172,7 @@ public class Unit : MonoBehaviour
     {
         if (cooldownTimer > 0) return;
         var dist = Vector3.Distance(transform.position, target.transform.position);
-        var delay = dist / attackFlightSpeed;
-        attackStrategy.Attack(this, target, delay);
+        attackStrategy.Attack(this, target);
         cooldownTimer = cooldown;
     }
 }
