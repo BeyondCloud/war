@@ -40,11 +40,10 @@ public class ArcherAttack : IAttack
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-            if (target == null)
+            if (target != null)
             {
-                yield return null;
+                targetPos = target.transform.position;
             }
-            targetPos = target.transform.position;
             Vector3 basePos = Vector3.Lerp(startPos, targetPos, t);
             
             float arcHeight = arcOffset * Mathf.Sin(Mathf.PI * t);

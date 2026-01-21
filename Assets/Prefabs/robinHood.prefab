@@ -160,12 +160,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7108339969198208228, guid: 19ccd4d4dc56a4b48b6d4d0dff15c6d9, type: 3}
     - target: {fileID: 8421751430435858951, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
+      propertyPath: atk
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421751430435858951, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: attackType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8421751430435858951, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: attackRange
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8421751430435858951, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
+      propertyPath: attackFlightSpeed
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
