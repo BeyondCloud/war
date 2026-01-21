@@ -6,6 +6,12 @@ using UnityEngine.AI;
 // [RequireComponent(typeof(NavMeshAgent))]
 // [RequireComponent(typeof(LineRenderer))]
 
+public enum AttackType
+{
+    Melee,
+    Archer
+}
+
 public class Unit : MonoBehaviour
 {
     [Header("Stats")]
@@ -13,9 +19,16 @@ public class Unit : MonoBehaviour
     public float hp;
     public float atk = 10;
     public float attackRange = 0.5f;
+    public float cooldown = 1.0f;
+
+    [Header("Attack Settings")]
+    public AttackType attackType = AttackType.Melee;
+    [ConditionalHide("attackType", AttackType.Archer)]
+    public float attackFlightSpeed = 10.0f; // 只有Archer類型時使用
 
     [Header("Runtime")]
-    public float cooldown;
+
+    private float cooldownTimer = 0f;
     [HideInInspector]public Team team;
     
     [HideInInspector]
@@ -27,10 +40,23 @@ public class Unit : MonoBehaviour
     private LineRenderer lineRenderer;
     [SerializeField]
     private Animator unitAnimator;
+    private IAttack attackStrategy;
+    
     void Awake()
     {
         hp = maxHp;
         agent = GetComponent<NavMeshAgent>();
+        
+        // 根據選擇的攻擊類型初始化攻擊策略
+        switch (attackType)
+        {
+            case AttackType.Melee:
+                attackStrategy = new MeleeAttack();
+                break;
+            case AttackType.Archer:
+                attackStrategy = new ArcherAttack(attackFlightSpeed, this);
+                break;
+        }
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
         agent.stoppingDistance = attackRange * 0.8f;
         agent.updateRotation = false; // We handle rotation manually
@@ -39,6 +65,10 @@ public class Unit : MonoBehaviour
         agent.avoidancePriority = 50; // 統一優先級, 沒有的話會有隨機性
         // agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         
+    }
+    public float GetDistanceToTarget(Unit target)
+    {
+        return Vector3.Distance(transform.position, target.transform.position);
     }
     void Start()
     {
@@ -105,8 +135,8 @@ public class Unit : MonoBehaviour
         }
         if (!IsAlive) return;
         
-        if (cooldown > 0)
-            cooldown -= Time.deltaTime;
+        if (cooldownTimer > 0)
+            cooldownTimer -= Time.deltaTime;
         currentTarget = AssignTarget();
         if (!currentTarget)
         {
@@ -143,10 +173,10 @@ public class Unit : MonoBehaviour
 
     void TryAttack(Unit target)
     {
-        if (cooldown > 0) return;
-
-        target.TakeDamage(atk);
-        cooldown = 1.0f; // 秒
+        if (cooldownTimer > 0) return;
+        var dist = Vector3.Distance(transform.position, target.transform.position);
+        attackStrategy.Attack(this, target, dist / attackFlightSpeed);
+        cooldownTimer = cooldown;
     }
 }
 

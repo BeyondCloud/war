@@ -376,7 +376,9 @@ MonoBehaviour:
   hp: 0
   atk: 20
   attackRange: 1.5
-  cooldown: 0
+  cooldown: 1
+  attackType: 0
+  attackFlightSpeed: 10
   team: 0
   faceDirection: {x: 1, y: 0, z: 0}
   currentTarget: {fileID: 0}
