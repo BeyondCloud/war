@@ -101,7 +101,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 107024329644363735, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.11
+      value: -11.77
       objectReference: {fileID: 0}
     - target: {fileID: 107024329644363735, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -109,7 +109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 107024329644363735, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.81528
+      value: -1.62
       objectReference: {fileID: 0}
     - target: {fileID: 107024329644363735, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: attackRange
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8421751430435858951, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
+      propertyPath: bulletSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c18d1442aa6e8924bab8a3841c8294ff, type: 3}
     - target: {fileID: 8421751430435858951, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: attackFlightSpeed
       value: 20
