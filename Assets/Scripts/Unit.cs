@@ -51,7 +51,7 @@ public class Unit : MonoBehaviour
         switch (attackType)
         {
             case AttackType.Melee:
-                attackStrategy = new MeleeAttack();
+                attackStrategy = new MeleeAttack(0.1f, this);
                 break;
             case AttackType.Archer:
                 attackStrategy = new ArcherAttack(attackFlightSpeed, this, arcOffset);
