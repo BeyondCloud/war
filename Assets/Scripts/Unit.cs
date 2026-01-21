@@ -25,6 +25,10 @@ public class Unit : MonoBehaviour
     public AttackType attackType = AttackType.Melee;
     [ConditionalHide("attackType", AttackType.Archer)]
     public float attackFlightSpeed = 10.0f; // 只有Archer類型時使用
+    [ConditionalHide("attackType", AttackType.Archer)]
+    public Sprite bulletSprite; // 子彈的樣式
+    [ConditionalHide("attackType", AttackType.Archer)]
+    public float arcOffset = 5.0f; // 弓箭飛行的Z軸偏移高度（0為直線飛行）
 
     [Header("Runtime")]
 
@@ -54,7 +58,7 @@ public class Unit : MonoBehaviour
                 attackStrategy = new MeleeAttack();
                 break;
             case AttackType.Archer:
-                attackStrategy = new ArcherAttack(attackFlightSpeed, this);
+                attackStrategy = new ArcherAttack(attackFlightSpeed, this, arcOffset);
                 break;
         }
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
