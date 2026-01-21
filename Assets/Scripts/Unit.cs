@@ -42,6 +42,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private Animator unitAnimator;
     private IAttack attackStrategy;
     
+    private Vector3 offset = new Vector3(0, 0, 0.5f);
     void Awake()
     {
         hp = maxHp;
@@ -76,6 +77,7 @@ public class Unit : MonoBehaviour
         lineRenderer.startWidth = 0.15f;
         lineRenderer.endWidth = 0.15f;
         lineRenderer.positionCount = 0;
+        lineRenderer.SetWidth(0.2f, 0.01f);
     }
     void DrawPath()
     {
@@ -93,8 +95,16 @@ public class Unit : MonoBehaviour
         if (currentTarget)
         {
             lineRenderer.positionCount = 2;
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, currentTarget.transform.position);
+            if (team == Team.Red)
+            {
+                lineRenderer.SetPosition(0, transform.position + offset);
+                lineRenderer.SetPosition(1, currentTarget.transform.position+ offset);
+            }
+            else
+            {
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, currentTarget.transform.position);
+            }
         }
         else
         {
