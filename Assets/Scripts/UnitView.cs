@@ -8,6 +8,7 @@ public class UnitView : MonoBehaviour
     public Image hpFill;
     public Canvas canvas;
     private Unit unit;
+    public Transform unitSpriteTransform;
     
 
     // This get called after unit is initialized
@@ -49,9 +50,9 @@ public class UnitView : MonoBehaviour
     {
         if (unit)
         {
-            var scale = unit.transform.localScale;
+            var scale = unitSpriteTransform.localScale;
             scale.x = Mathf.Abs(scale.x) * unit.faceDirection.x;
-            unit.transform.localScale = scale;
+            unitSpriteTransform.localScale = scale;
         }
     }
 }

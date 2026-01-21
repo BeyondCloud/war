@@ -360,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HpBar
   hpFill: {fileID: 5818733472234862016}
   canvas: {fileID: 6690693351449056287}
+  unitSpriteTransform: {fileID: 5712827409422800382}
 --- !u!114 &8421751430435858951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +380,8 @@ MonoBehaviour:
   cooldown: 1
   attackType: 0
   attackFlightSpeed: 10
+  bulletSprite: {fileID: 0}
+  arcOffset: 5
   team: 0
   faceDirection: {x: 1, y: 0, z: 0}
   currentTarget: {fileID: 0}
