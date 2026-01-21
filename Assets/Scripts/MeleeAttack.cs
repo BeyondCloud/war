@@ -7,7 +7,7 @@ public class MeleeAttack : IAttack
     private float delay;
     public MeleeAttack(float delay, MonoBehaviour runner)
     {
-        this.delay = delay;
+        this.delay = delay; // attack delay in seconds, this make the fight fairer
         this.coroutineRunner = runner;
     }
     public void Attack(Unit attacker, Unit target)
