@@ -33,17 +33,13 @@ public class Unit : MonoBehaviour
     [Header("Runtime")]
 
     private float cooldownTimer = 0f;
-    [HideInInspector]public Team team;
-    
-    [HideInInspector]
-    public Vector3 faceDirection = Vector3.right;
-    [HideInInspector]
-    public Unit currentTarget;
+    [HideInInspector] public Team team;
+    [HideInInspector] public Vector3 faceDirection = Vector3.right;
+    [HideInInspector] public Unit currentTarget;
     
     private NavMeshAgent agent;
     private LineRenderer lineRenderer;
-    [SerializeField]
-    private Animator unitAnimator;
+    [SerializeField] private Animator unitAnimator;
     private IAttack attackStrategy;
     
     void Awake()
@@ -93,16 +89,16 @@ public class Unit : MonoBehaviour
             lineRenderer.startColor = Color.red;
             lineRenderer.endColor = Color.red;
         }
-        lineRenderer.positionCount = agent.path.corners.Length;
-        lineRenderer.SetPosition(0,transform.position);
-        if (agent.path.corners.Length < 2 )
+        
+        if (currentTarget)
         {
-            return;
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, currentTarget.transform.position);
         }
-        for (int i = 1; i < agent.path.corners.Length; i++)
+        else
         {
-            Vector3 pointPosition = new Vector3(agent.path.corners[i].x, agent.path.corners[i].y, agent.path.corners[i].z);
-            lineRenderer.SetPosition(i, pointPosition);
+            lineRenderer.positionCount = 0;
         }
     }
     public void Init(Team team)
@@ -133,10 +129,7 @@ public class Unit : MonoBehaviour
     public void Tick()
     {
         unitAnimator.SetFloat("speed", agent.velocity.magnitude);
-        if (agent.hasPath)
-        {
-            DrawPath();
-        }
+        DrawPath();
         if (!IsAlive) return;
         
         if (cooldownTimer > 0)
