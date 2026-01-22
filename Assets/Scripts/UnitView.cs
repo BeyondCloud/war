@@ -28,7 +28,8 @@ public class UnitView : MonoBehaviour
         lineRenderer.startWidth = 0.15f;
         lineRenderer.endWidth = 0.15f;
         lineRenderer.positionCount = 0;
-        lineRenderer.SetWidth(0.2f, 0.01f);
+        lineRenderer.startWidth = 0.2f;
+        lineRenderer.endWidth = 0.01f;
     }
     void DrawPath()
     {
