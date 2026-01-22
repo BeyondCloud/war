@@ -38,11 +38,9 @@ public class Unit : MonoBehaviour
     [HideInInspector] public Unit currentTarget;
     
     private NavMeshAgent agent;
-    private LineRenderer lineRenderer;
     [SerializeField] private Animator unitAnimator;
     private IAttack attackStrategy;
-    
-    private Vector3 offset = new Vector3(0, 0, 0.5f);
+
     void Awake()
     {
         hp = maxHp;
@@ -73,44 +71,9 @@ public class Unit : MonoBehaviour
     }
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.15f;
-        lineRenderer.endWidth = 0.15f;
-        lineRenderer.positionCount = 0;
-        lineRenderer.SetWidth(0.2f, 0.01f);
+
     }
-    void DrawPath()
-    {
-        if(team == Team.Blue)
-        {
-            lineRenderer.startColor = Color.blue;
-            lineRenderer.endColor = Color.blue;
-        }
-        else
-        {
-            lineRenderer.startColor = Color.red;
-            lineRenderer.endColor = Color.red;
-        }
-        
-        if (currentTarget)
-        {
-            lineRenderer.positionCount = 2;
-            if (team == Team.Red)
-            {
-                lineRenderer.SetPosition(0, transform.position + offset);
-                lineRenderer.SetPosition(1, currentTarget.transform.position+ offset);
-            }
-            else
-            {
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, currentTarget.transform.position);
-            }
-        }
-        else
-        {
-            lineRenderer.positionCount = 0;
-        }
-    }
+
     public void Init(Team team)
     {
         this.team = team;
@@ -139,7 +102,6 @@ public class Unit : MonoBehaviour
     public void Tick()
     {
         unitAnimator.SetFloat("speed", agent.velocity.magnitude);
-        DrawPath();
         if (!IsAlive) return;
         
         if (cooldownTimer > 0)

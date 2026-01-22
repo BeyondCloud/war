@@ -10,7 +10,8 @@ public class UnitView : MonoBehaviour
     private Unit unit;
     public Transform unitSpriteTransform;
     
-
+    private LineRenderer lineRenderer;
+    private Vector3 targetLineOffset = new Vector3(0, 0, 0.5f);
     // This get called after unit is initialized
     void Start()
     {
@@ -23,12 +24,49 @@ public class UnitView : MonoBehaviour
         {
             hpFill.color = Color.red;
         }
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.15f;
+        lineRenderer.endWidth = 0.15f;
+        lineRenderer.positionCount = 0;
+        lineRenderer.SetWidth(0.2f, 0.01f);
     }
-
+    void DrawPath()
+    {
+        if(unit.team == Team.Blue)
+        {
+            lineRenderer.startColor = Color.blue;
+            lineRenderer.endColor = Color.blue;
+        }
+        else
+        {
+            lineRenderer.startColor = Color.red;
+            lineRenderer.endColor = Color.red;
+        }
+        
+        if (unit.currentTarget)
+        {
+            lineRenderer.positionCount = 2;
+            if (unit.team == Team.Red)
+            {
+                lineRenderer.SetPosition(0, unit.transform.position + targetLineOffset);
+                lineRenderer.SetPosition(1, unit.currentTarget.transform.position + targetLineOffset);
+            }
+            else
+            {
+                lineRenderer.SetPosition(0, unit.transform.position);
+                lineRenderer.SetPosition(1, unit.currentTarget.transform.position);
+            }
+        }
+        else
+        {
+            lineRenderer.positionCount = 0;
+        }
+    }
     void Update()
     {
         updateHpBar();
         updateFacingDirection();
+        DrawPath();
    }
 
     void LateUpdate()
