@@ -21,12 +21,7 @@ public class ArcherAttack : IAttack
 
     private IEnumerator ProjectileRoutine(Unit attacker, Unit target)
     {
-        float elapsed = 0f;
-        while (elapsed < 0.5f)
-        {
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(0.5f);
         GameObject bullet = null;
         try
         {
@@ -42,19 +37,19 @@ public class ArcherAttack : IAttack
             sr.sortingOrder = 10;
 
             Vector3 startPos = attacker.transform.position;
-            Vector3 targetPos = target.transform.position;
+            Vector3 targetPos = new Vector3();
+            if(target != null)
+                targetPos = target.transform.position;
             float distance = Vector3.Distance(startPos, targetPos);
             float duration = distance / attackFlightSpeed;
-            elapsed = 0f;
+            float elapsed = 0f;
 
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
                 float t = elapsed / duration;
                 if (target != null)
-                {
                     targetPos = target.transform.position;
-                }
                 Vector3 basePos = Vector3.Lerp(startPos, targetPos, t);
 
                 float arcHeight = arcOffset * Mathf.Sin(Mathf.PI * t);
@@ -71,9 +66,7 @@ public class ArcherAttack : IAttack
                 yield return null;
             }
             if (target != null && target.IsAlive)
-            {
                 target.TakeDamage(attacker.atk);
-            }
             Object.Destroy(bullet);
             bullet = null; // avoid double-destroy in finally
         }

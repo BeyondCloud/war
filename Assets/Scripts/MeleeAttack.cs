@@ -17,12 +17,7 @@ public class MeleeAttack : IAttack
 
     private IEnumerator AttackRoutine(Unit attacker, Unit target)
     {
-        float elapsed = 0f;
-        while (elapsed < this.delay)
-        {
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+        yield return new WaitForSeconds(this.delay);
         if (target != null && target.IsAlive)
             target.TakeDamage(attacker.atk);
     }
