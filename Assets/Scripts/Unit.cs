@@ -39,7 +39,7 @@ public class Unit : MonoBehaviour
     [HideInInspector] public Team team;
     [HideInInspector] public Vector3 faceDirection = Vector3.right;
     [HideInInspector] public Unit currentTarget;
-    
+
     private NavMeshAgent agent;
     [SerializeField] private Animator unitAnimator;
     private IAttack attackStrategy;
@@ -48,7 +48,7 @@ public class Unit : MonoBehaviour
     {
         hp = maxHp;
         agent = GetComponent<NavMeshAgent>();
-        
+
         // 根據選擇的攻擊類型初始化攻擊策略
         switch (attackType)
         {
@@ -63,17 +63,21 @@ public class Unit : MonoBehaviour
                 break;
         }
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
-        agent.stoppingDistance = attackRange * 0.8f;
+        agent.stoppingDistance = 0.05f;
         agent.updateRotation = false; // We handle rotation manually
-        
+
         // 設置 NavMeshAgent 為確定性模式
         agent.avoidancePriority = 50; // 統一優先級, 沒有的話會有隨機性
+        //get obstacle avoidance radius
+        attackRange = Mathf.Max(attackRange, 2 * agent.radius + 1.0f);
         // agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-        
+
     }
     public float GetDistanceToTarget(Unit target)
     {
-        return Vector3.Distance(transform.position, target.transform.position);
+        var diff = transform.position - target.transform.position;
+        diff.z *= 1.8f;
+        return diff.magnitude;
     }
     void Start()
     {
@@ -109,7 +113,7 @@ public class Unit : MonoBehaviour
     {
         unitAnimator.SetFloat("speed", agent.velocity.magnitude);
         if (!IsAlive) return;
-        
+
         if (cooldownTimer > 0)
             cooldownTimer -= Time.deltaTime;
         currentTarget = GetTarget();
@@ -120,11 +124,11 @@ public class Unit : MonoBehaviour
             return;
         }
 
-        float dist = Vector3.Distance(transform.position, currentTarget.transform.position);
+        float dist = GetDistanceToTarget(currentTarget);
 
         if (dist <= attackRange)
         {
-            // Stop moving to attack
+            Debug.Log($"{dist}");
             if (agent.isOnNavMesh) agent.ResetPath();
             TryAttack(currentTarget);
         }
@@ -136,6 +140,7 @@ public class Unit : MonoBehaviour
 
     void MoveTowards(Vector3 target)
     {
+        agent.isStopped = false;
         if (agent.isOnNavMesh)
         {
             agent.SetDestination(target);
@@ -149,7 +154,7 @@ public class Unit : MonoBehaviour
     void TryAttack(Unit target)
     {
         if (cooldownTimer > 0) return;
-        var dist = Vector3.Distance(transform.position, target.transform.position);
+        agent.isStopped = true;
         attackStrategy.Attack(this, target);
         cooldownTimer = cooldown;
     }
