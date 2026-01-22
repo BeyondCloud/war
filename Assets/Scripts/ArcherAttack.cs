@@ -51,9 +51,10 @@ public class ArcherAttack : IAttack
             bullet.transform.position = currentPos;
             
             // Compute rotation to face movement direction
-            float half_x = (targetPos.x - startPos.x) / 2;
-            float angle_start = attacker.faceDirection.x * (Mathf.Atan2(arcOffset, half_x) * Mathf.Rad2Deg - 90);
-            float angle_end = attacker.faceDirection.x * (Mathf.Atan2(-arcOffset, half_x) * Mathf.Rad2Deg - 90);
+            float half_x = Mathf.Abs(targetPos.x - startPos.x) / 2;
+            float start_angle =  Mathf.Atan2(arcOffset, half_x) * Mathf.Rad2Deg;
+            float angle_start = attacker.faceDirection.x * (start_angle - 90);
+            float angle_end = attacker.faceDirection.x * (-start_angle - 90);
             float angle_current = Mathf.Lerp(angle_start, angle_end, t);
             bullet.transform.rotation = Quaternion.Euler(90f, 0f, angle_current);
             yield return null;
