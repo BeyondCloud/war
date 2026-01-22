@@ -21,48 +21,62 @@ public class ArcherAttack : IAttack
 
     private IEnumerator ProjectileRoutine(Unit attacker, Unit target)
     {
-        GameObject bullet = new GameObject("Bullet");
-        // set bullet scale
-        bullet.transform.localScale = new Vector3(5.0f, 10.0f, 5.0f);
-        bullet.transform.position = attacker.transform.position;
-        
-        SpriteRenderer sr = bullet.AddComponent<SpriteRenderer>();
-        sr.sprite = attacker.bulletSprite;
-        sr.sortingOrder = 10;
-        
-        Vector3 startPos = attacker.transform.position;
-        Vector3 targetPos = target.transform.position;
-        float distance = Vector3.Distance(startPos, targetPos);
-        float duration = distance / attackFlightSpeed;
-        float elapsed = 0f;
-        
-        while (elapsed < duration)
+        GameObject bullet = null;
+        try
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            if (target != null)
+            bullet = new GameObject("Bullet");
+            // set bullet scale
+            bullet.transform.localScale = new Vector3(5.0f, 10.0f, 5.0f);
+            bullet.transform.position = attacker.transform.position;
+            // parent to attacker so it's auto-destroyed with the unit
+            bullet.transform.SetParent(attacker.transform, true);
+
+            SpriteRenderer sr = bullet.AddComponent<SpriteRenderer>();
+            sr.sprite = attacker.bulletSprite;
+            sr.sortingOrder = 10;
+
+            Vector3 startPos = attacker.transform.position;
+            Vector3 targetPos = target.transform.position;
+            float distance = Vector3.Distance(startPos, targetPos);
+            float duration = distance / attackFlightSpeed;
+            float elapsed = 0f;
+
+            while (elapsed < duration)
             {
-                targetPos = target.transform.position;
+                elapsed += Time.deltaTime;
+                float t = elapsed / duration;
+                if (target != null)
+                {
+                    targetPos = target.transform.position;
+                }
+                Vector3 basePos = Vector3.Lerp(startPos, targetPos, t);
+
+                float arcHeight = arcOffset * Mathf.Sin(Mathf.PI * t);
+                Vector3 currentPos = new Vector3(basePos.x, basePos.y, basePos.z + arcHeight);
+                bullet.transform.position = currentPos;
+
+                // Compute rotation to face movement direction
+                float half_x = Mathf.Abs(targetPos.x - startPos.x) / 2;
+                float start_angle =  Mathf.Atan2(arcOffset, half_x) * Mathf.Rad2Deg;
+                float angle_start = attacker.faceDirection.x * (start_angle - 90);
+                float angle_end = attacker.faceDirection.x * (-start_angle - 90);
+                float angle_current = Mathf.Lerp(angle_start, angle_end, t);
+                bullet.transform.rotation = Quaternion.Euler(90f, 0f, angle_current);
+                yield return null;
             }
-            Vector3 basePos = Vector3.Lerp(startPos, targetPos, t);
-            
-            float arcHeight = arcOffset * Mathf.Sin(Mathf.PI * t);
-            Vector3 currentPos = new Vector3(basePos.x, basePos.y, basePos.z + arcHeight);
-            bullet.transform.position = currentPos;
-            
-            // Compute rotation to face movement direction
-            float half_x = Mathf.Abs(targetPos.x - startPos.x) / 2;
-            float start_angle =  Mathf.Atan2(arcOffset, half_x) * Mathf.Rad2Deg;
-            float angle_start = attacker.faceDirection.x * (start_angle - 90);
-            float angle_end = attacker.faceDirection.x * (-start_angle - 90);
-            float angle_current = Mathf.Lerp(angle_start, angle_end, t);
-            bullet.transform.rotation = Quaternion.Euler(90f, 0f, angle_current);
-            yield return null;
+            if (target != null && target.IsAlive)
+            {
+                target.TakeDamage(attacker.atk);
+            }
+            Object.Destroy(bullet);
+            bullet = null; // avoid double-destroy in finally
         }
-        if (target != null && target.IsAlive)
+        finally
         {
-            target.TakeDamage(attacker.atk);
+            if (bullet != null)
+            {
+                Object.Destroy(bullet);
+            }
         }
-        Object.Destroy(bullet);
     }
 }
