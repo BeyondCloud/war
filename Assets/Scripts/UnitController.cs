@@ -111,6 +111,24 @@ public class UnitController : MonoBehaviour
         }
         return best;
     }
+    
+    public List<Unit> FindEnemiesInRadius(Unit self, float radius)
+    {
+        var enemies = self.team == Team.Blue ? redUnits : blueUnits;
+        List<Unit> enemiesInRange = new List<Unit>();
+
+        foreach (var e in enemies)
+        {
+            if (!e || !e.IsAlive) continue;
+
+            float distance = Vector3.Distance(self.transform.position, e.transform.position);
+            if (distance <= radius)
+            {
+                enemiesInRange.Add(e);
+            }
+        }
+        return enemiesInRange;
+    }
     // Removed HandleSeparation logic since NavMeshAgents are now used.
 
     public void OnUnitDeath(Unit unit)

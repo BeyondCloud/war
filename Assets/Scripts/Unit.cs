@@ -9,7 +9,8 @@ using UnityEngine.AI;
 public enum AttackType
 {
     Melee,
-    Archer
+    Archer,
+    Aoe
 }
 
 public class Unit : MonoBehaviour
@@ -29,6 +30,8 @@ public class Unit : MonoBehaviour
     public Sprite bulletSprite; // 子彈的樣式
     [ConditionalHide("attackType", AttackType.Archer)]
     public float arcOffset = 5.0f; // 弓箭飛行的Z軸偏移高度（0為直線飛行）
+    [ConditionalHide("attackType", AttackType.Aoe)]
+    public float aoeRadius = 3.0f; // AOE攻擊半徑
 
     [Header("Runtime")]
 
@@ -54,6 +57,9 @@ public class Unit : MonoBehaviour
                 break;
             case AttackType.Archer:
                 attackStrategy = new ArcherAttack(attackFlightSpeed, this, arcOffset);
+                break;
+            case AttackType.Aoe:
+                attackStrategy = new AoeAttack(0.1f, aoeRadius, this);
                 break;
         }
         // Ensure the agent is configured correctly for 2D/3D hybrid or standard 3D usage
