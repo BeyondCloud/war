@@ -93,7 +93,7 @@ public class Unit : MonoBehaviour
         UnitController.Instance.OnUnitDeath(this);
         Destroy(gameObject);
     }
-    private Unit AssignTarget()
+    private Unit GetTarget()
     {
         return UnitController.Instance.FindNearestEnemy(this);
     }
@@ -106,7 +106,7 @@ public class Unit : MonoBehaviour
         
         if (cooldownTimer > 0)
             cooldownTimer -= Time.deltaTime;
-        currentTarget = AssignTarget();
+        currentTarget = GetTarget();
         if (!currentTarget)
         {
             // No target, stop moving
