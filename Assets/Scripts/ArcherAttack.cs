@@ -21,6 +21,12 @@ public class ArcherAttack : IAttack
 
     private IEnumerator ProjectileRoutine(Unit attacker, Unit target)
     {
+        float elapsed = 0f;
+        while (elapsed < 0.5f)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
         GameObject bullet = null;
         try
         {
@@ -39,7 +45,7 @@ public class ArcherAttack : IAttack
             Vector3 targetPos = target.transform.position;
             float distance = Vector3.Distance(startPos, targetPos);
             float duration = distance / attackFlightSpeed;
-            float elapsed = 0f;
+            elapsed = 0f;
 
             while (elapsed < duration)
             {

@@ -42,6 +42,8 @@ public class Unit : MonoBehaviour
 
     private NavMeshAgent agent;
     [SerializeField] private Animator unitAnimator;
+    [SerializeField] private Animator weaponAnimator;
+    
     private IAttack attackStrategy;
 
     void Awake()
@@ -128,7 +130,6 @@ public class Unit : MonoBehaviour
 
         if (dist <= attackRange)
         {
-            Debug.Log($"{dist}");
             if (agent.isOnNavMesh) agent.ResetPath();
             TryAttack(currentTarget);
         }
@@ -155,6 +156,8 @@ public class Unit : MonoBehaviour
     {
         if (cooldownTimer > 0) return;
         agent.isStopped = true;
+        if(weaponAnimator)
+            weaponAnimator.SetTrigger("attack");
         attackStrategy.Attack(this, target);
         cooldownTimer = cooldown;
     }

@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3992051724826285333}
   - component: {fileID: 2226689708523366597}
+  - component: {fileID: 5954342192697007187}
+  - component: {fileID: 1410719717983969924}
+  - component: {fileID: 8085549338436010894}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -25,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158017278010714494}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0555, y: -0.0403, z: 0}
-  m_LocalScale: {x: 0.51, y: 0.51, z: 0.51}
+  m_LocalRotation: {x: -0, y: -0, z: 0.09692109, w: 0.99529207}
+  m_LocalPosition: {x: 0.07139998, y: 0.01199999, z: 0}
+  m_LocalScale: {x: 0.66, y: 0.66, z: 0.66}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2165773988365127356}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 11.124}
 --- !u!212 &2226689708523366597
 SpriteRenderer:
   serializedVersion: 2
@@ -81,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -672529312, guid: c24f153829740524dbbd6fcc98e211d1, type: 3}
+  m_Sprite: {fileID: 1362472287, guid: c24f153829740524dbbd6fcc98e211d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -91,6 +94,58 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5954342192697007187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158017278010714494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrary
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: d2c1964b482f8ba4d81d2f1001e4f252, type: 3}
+--- !u!114 &1410719717983969924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158017278010714494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
+  m_CategoryHash: 3.9891613e-14
+  m_labelHash: 0.00000040954276
+  m_SpriteKey: 0
+  m_SpriteHash: 448096474
+--- !u!95 &8085549338436010894
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158017278010714494}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5a5ee4dd70d8d2d428b808f0d0479739, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5856462603090008898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -175,6 +230,10 @@ PrefabInstance:
       propertyPath: bulletSprite
       value: 
       objectReference: {fileID: 21300000, guid: c18d1442aa6e8924bab8a3841c8294ff, type: 3}
+    - target: {fileID: 8421751430435858951, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
+      propertyPath: weaponAnimator
+      value: 
+      objectReference: {fileID: 8085549338436010894}
     - target: {fileID: 8421751430435858951, guid: 08025e93af4768048bf231601aa1a71b, type: 3}
       propertyPath: attackFlightSpeed
       value: 20

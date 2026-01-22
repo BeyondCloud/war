@@ -186,10 +186,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 107024329644363735}
+  - component: {fileID: 8421751430435858951}
   - component: {fileID: 6683253660777928234}
   - component: {fileID: 7652646184622975950}
   - component: {fileID: 8346093375072342498}
-  - component: {fileID: 8421751430435858951}
   m_Layer: 0
   m_Name: Dino
   m_TagString: Untagged
@@ -214,6 +214,33 @@ Transform:
   - {fileID: 5712827409422800382}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8421751430435858951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3422641841260356610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dde263dbdedf43b6a6537a7a8c3a8fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  hp: 0
+  atk: 20
+  attackRange: 1.5
+  cooldown: 1
+  attackType: 0
+  attackFlightSpeed: 10
+  bulletSprite: {fileID: 0}
+  arcOffset: 5
+  aoeRadius: 3
+  team: 0
+  faceDirection: {x: 1, y: 0, z: 0}
+  currentTarget: {fileID: 0}
+  unitAnimator: {fileID: 2338908854556359537}
+  weaponAnimator: {fileID: 0}
 --- !u!195 &6683253660777928234
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -370,31 +397,6 @@ MonoBehaviour:
   hpFill: {fileID: 5818733472234862016}
   canvas: {fileID: 6690693351449056287}
   unitSpriteTransform: {fileID: 5712827409422800382}
---- !u!114 &8421751430435858951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3422641841260356610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dde263dbdedf43b6a6537a7a8c3a8fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 100
-  hp: 0
-  atk: 20
-  attackRange: 1.5
-  cooldown: 1
-  attackType: 0
-  attackFlightSpeed: 10
-  bulletSprite: {fileID: 0}
-  arcOffset: 5
-  team: 0
-  faceDirection: {x: 1, y: 0, z: 0}
-  currentTarget: {fileID: 0}
-  unitAnimator: {fileID: 2338908854556359537}
 --- !u!1 &3937040123008333867
 GameObject:
   m_ObjectHideFlags: 0
