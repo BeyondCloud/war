@@ -33,16 +33,16 @@ public class UnitView : MonoBehaviour
     }
     void DrawPath()
     {
-        if(unit.team == Team.Blue)
-        {
-            lineRenderer.startColor = Color.blue;
-            lineRenderer.endColor = Color.blue;
-        }
-        else
-        {
-            lineRenderer.startColor = Color.red;
-            lineRenderer.endColor = Color.red;
-        }
+        // if(unit.team == Team.Blue)
+        // {
+        //     lineRenderer.startColor = Color.white;
+        //     lineRenderer.endColor = Color.blue;
+        // }
+        // else
+        // {
+        //     lineRenderer.startColor = Color.red;
+        //     lineRenderer.endColor = Color.red;
+        // }
         
         if (unit.currentTarget)
         {
@@ -108,7 +108,10 @@ public class UnitView : MonoBehaviour
     {
         if (unit)
         {
-            Gizmos.color = Color.red;
+            if( unit.team == Team.Blue)
+                Gizmos.color = Color.blue;
+            else
+                Gizmos.color = Color.red;
             float step = 0.1f;
             for (float angle = 0; angle < 2 * Mathf.PI; angle += step)
             {   
