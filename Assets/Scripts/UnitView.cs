@@ -93,4 +93,34 @@ public class UnitView : MonoBehaviour
             unitSpriteTransform.localScale = scale;
         }
     }
+
+    void OnDrawGizmos()
+    {
+        if (unit == null)
+        {
+            unit = GetComponent<Unit>();
+        }
+        DrawAttackRange();
+    }
+
+    void DrawAttackRange()
+    {
+        if (unit)
+        {
+            Gizmos.color = Color.red;
+            float step = 0.1f;
+            for (float angle = 0; angle < 2 * Mathf.PI; angle += step)
+            {   
+                float low_offset = 0.6f;
+                float x = Mathf.Cos(angle) * unit.attackRange;
+                float z = 0.5f * Mathf.Sin(angle) * unit.attackRange;
+                Vector3 pos = unit.transform.position + new Vector3(x, 0, z - low_offset);
+
+                float nextX = Mathf.Cos(angle + step) * unit.attackRange;
+                float nextZ = 0.5f * Mathf.Sin(angle + step) * unit.attackRange;
+                Vector3 nextPos = unit.transform.position + new Vector3(nextX, 0, nextZ - low_offset);
+                Gizmos.DrawLine(pos, nextPos);
+            }
+        }
+    }
 }
